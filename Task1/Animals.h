@@ -213,28 +213,28 @@ public:
 			cout << "4 - Hamster.\n";
 			cin >> animal;
 			if (animal < 1 || animal > 4)
-				cout << "Error. Invalid input.";
+				cout << "Error. Invalid input.\n";
 		} while (animal < 1 || animal > 4);
 		do
 		{
-			cout << "Enter animal breed:";
+			cout << "Enter animal breed: ";
 			cin >> breed;
-			if (name.size() == 0)
-				cout << "Error. Invalid input.";
-		} while (name.size() == 0);
+			if (breed.size() == 0)
+				cout << "Error. Invalid input.\n";
+		} while (breed.size() == 0);
 		do
 		{
-			cout << "Enter animal name:";
+			cout << "Enter animal name: ";
 			cin >> name;
 			if (name.size() == 0)
-				cout << "Error. Invalid input.";
+				cout << "Error. Invalid input.\n";
 		} while (name.size() == 0);
 		do
 		{
-			cout << "Enter animal age:\n";
+			cout << "Enter animal age: ";
 			cin >> age;
 			if (age < 0)
-				cout << "Error. Invalid input.";
+				cout << "Error. Invalid input.\n";
 		} while (age < 0);
 		switch (animal)
 		{
@@ -250,7 +250,10 @@ public:
 				cout << "1 - Short.\n";
 				cout << "2 - Medium.\n";
 				cout << "3 - Long.\n";
+				cout << "Fur length: ";
 				cin >> selection;
+				if (selection < 1 || selection > 3)
+					cout << "Invalid input. Try again.\n";
 			} while (selection < 1 || selection > 3);
 			switch (selection)
 			{
@@ -277,9 +280,21 @@ public:
 		}
 	}
 	//метод автоматичного додавання кількох "випадкових" тваринок у зоопарк
+	void AddRandom()
+	{
+		zoo.push_back(new Dog("Rex", 2, "Hound"));
+		zoo.push_back(new Cat("Tom", 1, "British", Short));
+		zoo.push_back(new Parrot("Poly", 3, "Cockatoo"));
+		zoo.push_back(new Hamster("Fluffy", 0, "Chinese"));
+	}
 	//метод виведення усіх  тваринок зоопарку
 	void Show() const
 	{
+		if (zoo.size() == 0)
+		{
+			cout << "Zoo is empty.\n";
+			return;
+		}
 		cout << "HomeZoo:\n";
 		for (int i = 0; i < zoo.size(); i++)
 		{
@@ -288,12 +303,47 @@ public:
 		}
 	}
 	//метод редагування тваринки(редагується назва чи вік, не тип тваринки)
+	void Edit()
+	{
+		if (zoo.size() == 0)
+		{
+			cout << "There's no one to edit.\n";
+			system("pause");
+			return;
+		}
+		int selection, age;
+		string name;
+		do
+		{
+			cout << "Enter number of animal to edit: ";
+			cin >> selection;
+			if (selection < 1 || selection > zoo.size())
+				cout << "Error. Invalid input.\n";
+		} while (selection < 1 || selection > zoo.size());
+		do
+		{
+			cout << "Enter animal name: ";
+			cin >> name;
+			if (name.size() == 0)
+				cout << "Error. Invalid input.";
+		} while (name.size() == 0);
+		zoo[selection - 1]->SetName(name);
+		do
+		{
+			cout << "Enter animal age: ";
+			cin >> age;
+			if (age < 0)
+				cout << "Error. Invalid input.\n";
+		} while (age < 0);
+		zoo[selection - 1]->SetAge(age);
+	}
 	//метод вилучення(продажу) тваринки з зоопарку
 	void Sell()
 	{
 		if (zoo.size() == 0)
 		{
-			cout << "There's noone to sell.\n";
+			cout << "There's no one to sell.\n";
+			system("pause");
 			return;
 		}
 		int selection;
@@ -309,6 +359,12 @@ public:
 	//метод вилучення(продажу) всіх тваринок
 	void SellAll()
 	{
+		if (zoo.size() == 0)
+		{
+			cout << "There's no one to sell.\n";
+			system("pause");
+			return;
+		}
 		if (zoo.size() > 0)
 		{
 			for (int i = 0; i < zoo.size(); i++)
