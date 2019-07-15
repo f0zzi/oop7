@@ -107,5 +107,9 @@ public:
 	void Print() const
 	{
 		cout << "Radius: " << radius << "\tSide: " << side << endl;
+		cout << "Circle area:\t" << Circle::Area() << endl;
+		cout << "Square area:\t" << Square::Area() << endl;
+		cout << "Total length:\t" << GetTotalLenght() << endl;
+		cout << "Figure area:\t" << GetFigureArea() << endl;
 	}
 };
